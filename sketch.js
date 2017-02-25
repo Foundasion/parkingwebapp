@@ -9,7 +9,7 @@ var hh = 512;
 var zoom = 1;
 var earthquakes;
 
-function pre() {
+function preload() {
   mapimg = loadImage('https://api.mapbox.com/styles/v1/mapbox/dark-v9/static/' +
     clat + ',' + clon + ',' + zoom + '/' +
     ww + 'x' + hh +
