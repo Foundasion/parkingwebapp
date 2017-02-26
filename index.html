@@ -4,48 +4,11 @@
   <title>Simple Map</title>
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
-  <style>
-  /* Always set the map height explicitly to define the size of the div
-  * element that contains the map. */
-  #map {
-    height: 100%;
-  }
-  /* Optional: Makes the sample page fill the window. */
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="map"></div>
-  <script>
-  var map;
-
-  function myMap() {
-    var myCenter = new google.maps.LatLng(40.744052,-74.177751);//central avenue
-    var mapCanvas = document.getElementById("map");
-    var mapOptions = {center: myCenter, zoom: 17}
-    var map = new google.maps.Map(mapCanvas, mapOptions);
-    var marker = new google.maps.Marker({position:myCenter});
-    //new google.maps.event.trigger( marker, 'click' );
-    marker.setMap(map);
-      //40.743975
-    var myCenter2 = new google.maps.LatLng(40.743975,-74.177392);
-    var marker2 = new google.maps.Marker({position:myCenter2});
-    marker2.setMap(map);
-    marker.addListener('click', function() {
-        console.log("HEEEEEEEEEEEEEEEEEEEEEEEE");
-        });
-  }
-
-
-
-
-
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYGLe5Sie1fdfIxB2kWChOzM-vmhWbCiw&callback=myMap"
-  async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYGLe5Sie1fdfIxB2kWChOzM-vmhWbCiw&callback=myMap" async defer></script>
+  <script src="sketch.js"></script>
 </body>
 </html>
