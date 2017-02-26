@@ -1,4 +1,11 @@
-var mapimg;
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+  });
+}
+/*var mapimg;
 var long = -74.1793;
 var lat = 40.7423;
 var zoomLvl = 17;
@@ -17,4 +24,4 @@ function setup() {
 
 function draw(){
 
-}
+}*/
