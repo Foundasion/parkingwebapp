@@ -43,7 +43,7 @@ function checkTime(i) {
 
 document.write("Spots available: " + availableSpots);
 
-var time = ["10A.M.-6P.M.", "12P.M.-6P.M."];
+var time = ['10A.M.-6P.M.', '12P.M.-6P.M.'];
 
 function myMap() {
   var myCenter = new google.maps.LatLng(lat[0], long[0]); //njit coordinate
@@ -51,31 +51,35 @@ function myMap() {
   var mapOptions = {center: myCenter, zoom: zoomLvl,};
   var map = new google.maps.Map(mapCanvas, mapOptions);
 
-  // var marker = [2]; //built below
-  // var infowindow = [2]; //built below
-  //
-  // for (var i=0; i < long.length; i++){
-  //   var loc = new google.maps.LatLng(lat[i], long[i]);
-  //   marker[i] = new google.maps.Marker({position: loc});
-  //   marker[i].setMap(map);
-  //   marker[i].addListener('click', function(){
-  //     infowindow[i] = new google.maps.InfoWindow({
-  //       content: time[i]
-  //     });
-  //     infowindow[i].open(map, marker[i]);
-  //     setTimeout(function () { infowindow[i].close(); }, 5000);
-  //   });
-  // }
+  var marker = []; //built below
+  var infowindow = []; //built below
 
-  var marker = new google.maps.Marker({position: myCenter});
-  marker.setMap(map);
-  marker.addListener('click', function(){
-    var infowindow = new google.maps.InfoWindow({
-      content: "122"
+  for (var i=0; i < long.length; i++){
+    var loc = new google.maps.LatLng(lat[i], long[i]);
+    marker[i] = new google.maps.Marker({
+      position: loc,
+      map: map
     });
-    infowindow.open(map, marker);
-    setTimeout(function () {infowindow.close(); }, 1000 )
-  })
+    //marker[i].setMap(map);
+    marker[i].info = new google.maps.InfoWindow({
+      content: "time[i]"
+    });
+    marker[i].addListener(marker[i], 'click', function(){
+
+      marker[i].info.open(map, marker[i]);
+      //setTimeout(function () { infowindow[i].close(); }, 5000);
+    });
+  }
+
+  // var marker = new google.maps.Marker({position: myCenter});
+  // marker.setMap(map);
+  // marker.addListener('click', function(){
+  //   var infowindow = new google.maps.InfoWindow({
+  //     content: "122"
+  //   });
+  //   infowindow.open(map, marker);
+  //   setTimeout(function () {infowindow.close(); }, 1000 )
+  // })
 
   // var centerMarker = new google.maps.Marker({position: myCenter});
   // //new google.maps.event.trigger( marker, 'click' );
@@ -99,11 +103,11 @@ function myMap() {
   //   infowindow.open(map,marker2);
   // });
 
-  google.maps.event.addListener(map, 'click', function(){
-    for (var i = 0; i < infowindow.length; i++){
-      infowindow[i].close();
-    }
-  });
+  // google.maps.event.addListener(map, 'click', function(){
+  //   for (var i = 0; i < infowindow.length; i++){
+  //     infowindow[i].close();
+  //   }
+  // });
 }
 
 function funct2 (){
