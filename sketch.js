@@ -5,6 +5,22 @@ function initMap() {
     zoom: 8
   });
 }
+
+function createButton(context, func){
+    var button = document.createElement("input");
+    button.type = "button";
+    button.value = "im a button";
+    button.onclick = func;
+    context.appendChild(button);
+}
+
+window.onload = function(){
+    createButton(document.body, function(){
+        highlight(this.parentNode.childNodes[1]);
+        // Example of different context, copied function etc
+        // createButton(this.parentNode, this.onclick);
+    });
+}
 /*var mapimg;
 var long = -74.1793;
 var lat = 40.7423;
