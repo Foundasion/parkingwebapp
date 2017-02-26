@@ -24,4 +24,10 @@ function setup() {
 
 function draw(){
 
+<<<<<<< HEAD
 }*/
+=======
+}
+
+//haard's comment
+>>>>>>> 680a59b31c31dd08f64e873f1067d63efa3df68d
