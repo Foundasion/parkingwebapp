@@ -5,7 +5,8 @@ var centerLong = -74.177751; //njit Long
 
 var lat = [40.744052 ,40.743975];
 var long= [-74.177751 ,-74.177392];
-var time = ["10A.M.-6P.M.", "12P.M.-6P.M."];
+var timeStart = [10, 12];
+var timeEnd = [18, 16]
 
 function myMap() {
   var myCenter = new google.maps.LatLng(lat[0], long[0]); //njit coordinate
@@ -13,31 +14,47 @@ function myMap() {
   var mapOptions = {center: myCenter, zoom: zoomLvl,};
   var map = new google.maps.Map(mapCanvas, mapOptions);
 
-  // var marker = [2]; //built below
-  // var infowindow = [2]; //built below
-  //
-  // for (var i=0; i < long.length; i++){
-  //   var loc = new google.maps.LatLng(lat[i], long[i]);
-  //   marker[i] = new google.maps.Marker({position: loc});
-  //   marker[i].setMap(map);
-  //   marker[i].addListener('click', function(){
-  //     infowindow[i] = new google.maps.InfoWindow({
-  //       content: time[i]
-  //     });
-  //     infowindow[i].open(map, marker[i]);
-  //     setTimeout(function () { infowindow[i].close(); }, 5000);
-  //   });
-  // }
+  var marker = []; //built below
+  var infowindow = []; //built below
 
-  var marker = new google.maps.Marker({position: myCenter});
-  marker.setMap(map);
-  marker.addListener('click', function(){
-    var infowindow = new google.maps.InfoWindow({
-      content: "blah"
+  for (var i=0; i < long.length; i++){
+    var loc = new google.maps.LatLng(lat[i], long[i]);
+    marker[i] = new google.maps.Marker({position: loc});
+    marker[i].setMap(map);
+    marker[i].addListener('click', function(){
+      var temp = new google.maps.InfoWindow({
+        //current time using getUTCHours() and getUTCMinutes()
+        var hour = getUTCHours();
+        var minute = getUTCMinutes();
+        hour += minute/60;
+        if (hour < timeEnd[i] && hour > timeStart[i]){
+          content: ("Available till: " + timeEnd)
+        }
+        else {
+          content: ("Not available right now!")
+        }
+      });
+      infowindow[i] = temp;
+      infowindow[i].open(map, marker[i]);
+      setTimeout(function () { infowindow[i].close(); }, 5000);
     });
-    infowindow.open(map, marker);
-    setTimeout(function () {infowindow.close(); }, 1000 )
-  })
+  }
+
+  google.maps.event.addListener(map, 'click', function(){
+    for (var i = 0; i < infowindow.length; i++){
+      infowindow[i].close();
+    }
+  });
+
+  // var marker = new google.maps.Marker({position: myCenter});
+  // marker.setMap(map);
+  // marker.addListener('click', function(){
+  //   var infowindow = new google.maps.InfoWindow({
+  //     content: "blah"
+  //   });
+  //   infowindow.open(map, marker);
+  //   setTimeout(function () {infowindow.close(); }, 1000 )
+  // })
 
   // var centerMarker = new google.maps.Marker({position: myCenter});
   // //new google.maps.event.trigger( marker, 'click' );
@@ -61,11 +78,7 @@ function myMap() {
   //   infowindow.open(map,marker2);
   // });
 
-  google.maps.event.addListener(map, 'click', function(){
-    for (var i = 0; i < infowindow.length; i++){
-      infowindow[i].close();
-    }
-  });
+
 }
 
 function funct2 (){
