@@ -5,10 +5,29 @@ var centerLong = -74.177751; //njit Long
 var availableSpots = 0;
 var lat = [40.744052 ,40.743975];
 var long = [-74.177751 ,-74.177392];
+
 // var timeStart = [10, 12];
 // var timeEnd = [18, 16];
 var markerArray = [];
 var infowindowArray = [];
+
+var timeStart = [10, 12];
+var timeEnd = [18, 16];
+
+function sss(){
+  var t = new Date();
+  var hour = t.getHours();
+  return hour;
+};
+
+var realtime = sss();
+// if(realtime === 12){
+//   document.write("true");
+// }else{
+//   document.write("false");
+// }
+document.write(realtime == 10);
+
 
 function startTime() {
     var today = new Date();
