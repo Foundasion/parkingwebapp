@@ -5,9 +5,10 @@ var centerLong = -74.177751; //njit Long
 var availableSpots = 0;
 var lat = [40.744052 ,40.743975];
 var long = [-74.177751 ,-74.177392];
-var timeStart = [10, 12];
-var timeEnd = [18, 16];
-
+// var timeStart = [10, 12];
+// var timeEnd = [18, 16];
+var markerArray = [];
+var infowindowArray = [];
 
 function startTime() {
     var today = new Date();
@@ -30,32 +31,49 @@ function checkTime(i) {
 
 document.write("Spots available: " + availableSpots);
 
-var time = ['10A.M.-6P.M.', '12P.M.-6P.M.'];
+
+function addMarker(location) {
+    marker = new google.maps.Marker({
+    position: location,
+    map: map
+    });
+    markerArray.push(marker);
+}
+
+function addInfowindow(str) {
+    infowindow = new google.maps.InfoWindow({content: str});
+    infowindowArray.push(infowindow);
+}
 
 function myMap() {
+  var time = ['10A.M.-6P.M.', '12P.M.-6P.M.'];
   var myCenter = new google.maps.LatLng(lat[0], long[0]); //njit coordinate
   var mapCanvas = document.getElementById("map");
   var mapOptions = {center: myCenter, zoom: zoomLvl,};
   var map = new google.maps.Map(mapCanvas, mapOptions);
 
-  var marker = []; //built below
-  var infowindow = []; //built below
-
+  var time = ['one', 'two'];
+  // var marker = []; //built below
+  // var infowindow = []; //built below
+  var infowindow = new google.maps.InfoWindow();
   for (var i=0; i < long.length; i++){
     var loc = new google.maps.LatLng(lat[i], long[i]);
-    marker[i] = new google.maps.Marker({
-      position: loc,
-      map: map
-    });
+    addMarker(loc);
+    addInfowindow(time[i]);
     //marker[i].setMap(map);
-    marker[i].info = new google.maps.InfoWindow({
-      content: "time[i]"
-    });
-    marker[i].addListener(marker[i], 'click', function(){
-
-      marker[i].info.open(map, marker[i]);
-      //setTimeout(function () { infowindow[i].close(); }, 5000);
-    });
+    // marker[i].addListener('click', function(){
+    //   infowindow = new google.maps.InfoWindow();
+    //   infowindow.setContent(time[i]);
+    //   infowindow.open(map, marker[i]);
+    //   setTimeout(function () { infowindow[i].close(); }, 5000);
+    // });
+    markerArray[i].setMap(map)
+    google.maps.event.addListener(markerArray[i], 'click', (function(x) {
+        return function() {
+          infowindowArray[i].open(map,markerArray[i]);
+        }
+      })(i));
+      //console.log(markersArray[x],infowindowArray[x]);
   }
 
   // var marker = new google.maps.Marker({position: myCenter});
