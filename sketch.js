@@ -19,6 +19,7 @@ function myMap() {
   centerMarker = new google.maps.Marker({position: myCenter});
   //new google.maps.event.trigger( marker, 'click' );
   centerMarker.setMap(map);
+<<<<<<< HEAD
     //40.743975
   pSpaceOne = new google.maps.LatLng(40.743975,-74.177392);
   pSpaceOneM = new google.maps.Marker({position: pSpaceOne});
@@ -26,7 +27,28 @@ function myMap() {
   for(int i = 0; i<pSpaces.length(); i++){
     if(pSpaces[i].addListener)
   }
+=======
+  //40.743975
+  var myCenter2 = new google.maps.LatLng(40.743975,-74.177392);
+  var marker2 = new google.maps.Marker({position:myCenter2});
+  marker2.setMap(map);
+  var infowindow;
+>>>>>>> 85b7fa266fa5b2311544f63906162f4f60c8cfaa
   centerMarker.addListener('click', function() {
-      console.log("HEEEEEEEEEEEEEEEEEEEEEEEE");
-      });
+    var infowindow = new google.maps.InfoWindow({
+      content: "10A.M.-6P.M."
+    });
+    infowindow.open(map,centerMarker);
+
+  });
+  marker2.addListener('click', function (){
+    var infowindow = new google.maps.InfoWindow({
+      content: "12P.M.-6P.M."
+    });
+    infowindow.open(map,marker2);
+  });
+
+  google.maps.event.addListener(map, 'click', function(){
+    infowindow.close();
+  });
 }
