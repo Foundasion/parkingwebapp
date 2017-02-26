@@ -18,24 +18,25 @@ function myMap() {
   var infowindow = []; //built below
 
   for (var i=0; i < long.length; i++){
+    var temp = new google.maps.InfoWindow({
+      //current time using getUTCHours() and getUTCMinutes()
+      var d = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+      var hour = d.getUTCHours();
+      var minute = d.getUTCMinutes();
+      hour += minute/60;
+      if (hour < timeEnd[i] && hour > timeStart[i]){
+        content: ("Available till: " + timeEnd)
+      }
+      else {
+        content: ("Not available right now!")
+      }
+    });
     var loc = new google.maps.LatLng(lat[i], long[i]);
     marker[i] = new google.maps.Marker({position: loc});
     marker[i].setMap(map);
     marker[i].addListener('click', function(){
-      var temp = new google.maps.InfoWindow({
-        //current time using getUTCHours() and getUTCMinutes()
-        var hour = getUTCHours();
-        var minute = getUTCMinutes();
-        hour += minute/60;
-        if (hour < timeEnd[i] && hour > timeStart[i]){
-          content: ("Available till: " + timeEnd)
-        }
-        else {
-          content: ("Not available right now!")
-        }
-      });
+      temp.open(map, marker[i]);
       infowindow[i] = temp;
-      infowindow[i].open(map, marker[i]);
       setTimeout(function () { infowindow[i].close(); }, 5000);
     });
   }
